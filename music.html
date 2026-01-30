@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Music App UI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111;
+      --muted: #8e8e93;
+      --card: #ffffff;
+      --shadow: 0 20px 40px rgba(0,0,0,.18);
+      --ghost: rgba(99, 99, 99, .25);
+    }
+
+    body.dark {
+      --bg: #0f1115;
+      --text: #f2f2f7;
+      --muted: #b5b5bd;
+      --card: #1c1f26;
+      --shadow: 0 20px 40px rgba(0,0,0,.6);
+      --ghost: rgba(153, 153, 153, .25);
+    }
+	
+	body.dark .text-muted {
+	  color: var(--muted) !important;
+	}		
+
+    body {
+      background: #ddd;
+    }
+
+	.app {
+	  width: 315px;
+	  height: 680px;
+	  background: var(--bg);
+	  color: var(--text);
+	  border-radius: 24px;
+	  box-shadow: 0 30px 60px rgba(0,0,0,.25);
+	  overflow: hidden;
+	}
+
+
+    .menu-popover {
+      position: absolute;
+      top: 56px;
+      left: 16px;
+      width: 220px;
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+      transition: all .25s ease;
+      z-index: 10;
+    }
+
+    .menu-popover.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+   
+    .image-main {
+	  width: 85%;
+	  margin-left: auto;
+	  margin-right: auto;
+      position: relative;
+	  border-radius: 6px;
+      z-index: 2;
+    }
+	
+	.image-stack {
+      position: relative;
+    }
+	
+	.image-shadow {
+      width: 180px;
+      height: 26px;
+      background: var(--ghost);
+      border-radius: 6px;
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    .card-img-top {
+      height: 280px;
+	  object-fit: cover;
+	  margin-left: auto;
+	  margin-right: auto;
+	  display: block;
+	}
+	
+  </style>
+</head>
+
+<body class="d-flex justify-content-center align-items-start py-4">
+
+  <div class="app position-relative">
+
+    <!-- HEADER -->
+    <div class="container-fluid position-relative">
+      <div class="row align-items-center py-2">
+	  <div class="container-fluid position-relative mt-4">
+
+        <button
+          id="menuBtn"
+          class="btn btn-dark rounded-circle d-flex align-items-center justify-content-center position-absolute start-0 ms-3"
+          style="width:36px;height:36px;"
+        >
+          ☰
+        </button>
+
+        <div class="col-12 text-center fw-semibold">
+          Music
+        </div>
+
+        <!-- MENU -->
+        <div id="menu" class="menu-popover p-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="fw-semibold">Dark Mode</span>
+            <div class="form-check form-switch fs-4">
+              <input class="form-check-input" type="checkbox" id="darkToggle">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="container text-center mt-3">
+
+      <!-- IMAGE -->
+      <div class="row justify-content-center">
+        <div class="col-12 px-0">
+          <div class="image-stack mx-3 mt-3">
+            <div class="card border-0 rounded-4 shadow-lg overflow-hidden image-main">
+              <img
+                src="https://images.unsplash.com/photo-1511379938547-c1f69419868d"
+                class="card-img-top"
+                alt="Music">
+				
+            </div>
+				<div class="image-shadow"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TEXT -->
+      <div class="row justify-content-center mt-5">
+        <div class="col-10">
+
+          <p class="text-muted small mb-1">Music & Sounds</p>
+
+          <h1 class="fw-bold mb-3">Audio878</h1>
+
+          <p class="text-muted fs-6 mb-4">
+            1987 Special edition volume and + legendary sound
+            with crazy authentic photos
+          </p>
+
+          <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
+            <div class="rounded-circle" style="
+              width:28px;
+              height:28px;
+              background: linear-gradient(135deg,#7f5cff,#00d4ff);
+            "></div>
+            <span class="small">Audio878</span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+    const darkToggle = document.getElementById('darkToggle');
+
+    menuBtn.onclick = () => {
+      menu.classList.toggle('show');
+    };
+
+    darkToggle.onchange = () => {
+      document.body.classList.toggle('dark');
+    };
+
+    document.addEventListener('click', e => {
+      if (!menu.contains(e.target) && !menuBtn.contains(e.target)) {
+        menu.classList.remove('show');
+      }
+    });
+  </script>
+
+</body>
+</html>
