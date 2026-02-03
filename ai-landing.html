@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Twinkle.ai — AI Smart Agent</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Font: Quicksand -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --text-dark: #1c1c1c;
+      --text-muted: #6b6b6b;
+    }
+
+    body {
+      font-family: "Quicksand", sans-serif;
+      font-weight: 300;
+      color: var(--text-dark);
+      background: #fff;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      padding: 1.05rem 2.3rem;
+    }
+
+    .navbar-brand {
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.05rem;
+    }
+
+    .brand-star {
+      width: 26px;
+      height: 26px;
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    .nav-link {
+      font-weight: 400;
+      color: #222 !important;
+      margin: 0 8px;
+    }
+
+    .btn-pill {
+      border-radius: 999px;
+      padding: 9px 22px;
+      font-weight: 400;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 3.7rem 1rem 1.2rem;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.15;
+      font-weight: 300;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero p {
+      max-width: 620px;
+      margin: 0 auto 2rem;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* HERO IMAGE */
+    .hero-image {
+      margin: 2.8rem auto 1.6rem; /* reduced more */
+      max-width: 1100px;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 36px 80px rgba(0,0,0,.12);
+    }
+
+    .hero-image img {
+      width: 100%;
+      display: block;
+    }
+
+    /* LOGOS */
+    .logos {
+      padding: 1.4rem 1rem 3rem; /* tighter top */
+    }
+
+    .logo-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 56px;
+    }
+
+    .logo-row img {
+      height: 28px;
+      filter: grayscale(100%) brightness(0);
+      opacity: .85;
+      transition: all .3s ease;
+    }
+
+    .logo-row img:hover {
+      filter: none;
+      opacity: 1;
+    }
+
+    /* DROPDOWN */
+    .dropdown-menu {
+      border-radius: 14px;
+      padding: 10px;
+      border: none;
+      box-shadow: 0 18px 36px rgba(0,0,0,.12);
+    }
+
+    .dropdown-item {
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 400;
+    }
+
+    .dropdown-item:hover {
+      background: #f2f2f2;
+    }
+
+    .pricing-link {
+      font-weight: 400;
+      margin-right: 18px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <!-- 4-point star -->
+      <svg class="brand-star" viewBox="0 0 24 24" fill="black">
+        <polygon points="12,2 15,9 22,12 15,15 12,22 9,15 2,12 9,9"/>
+      </svg>
+      Twinkle.ai
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-center" id="navMenu">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Product</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">AI Agents</a></li>
+            <li><a class="dropdown-item" href="#">Automation</a></li>
+            <li><a class="dropdown-item" href="#">Integrations</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Solutions</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Project Management</a></li>
+            <li><a class="dropdown-item" href="#">Operations</a></li>
+            <li><a class="dropdown-item" href="#">Enterprise</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a class="nav-link" href="#">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Support</a></li>
+      </ul>
+    </div>
+
+    <div class="d-none d-lg-flex align-items-center">
+      <span class="pricing-link">Pricing</span>
+      <button class="btn btn-dark btn-pill">Download for Web</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>
+    AI Smart Agent<br />
+    Project Management<br />
+    Analyser
+  </h1>
+
+  <p>
+    Manage Project and Build Your Ultimate AI Agent — Workforce
+  </p>
+
+  <div class="hero-buttons">
+    <button class="btn btn-dark btn-pill">Get Started — It's Free</button>
+    <button class="btn btn-outline-dark btn-pill">Download — Mobile App</button>
+  </div>
+
+  <div class="hero-image">
+    <img src="https://iili.io/ft7W8hb.png" alt="AI Dashboard Preview">
+  </div>
+</section>
+
+<!-- LOGOS -->
+<section class="logos">
+  <div class="logo-row">
+
+    <!-- Rakuten (already fine, keeping SimpleIcons) -->
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Rakuten%281%29.svg/330px-Rakuten%281%29.svg.png"
+      alt="Rakuten">
+
+    <!-- NCR (Wikimedia SVG – stable) -->
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/NCR_logo_color.svg/500px-NCR_logo_color.svg.png"
+      alt="NCR">
+
+    <!-- Monday.com (official SVG) -->
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Monday_logo.svg/500px-Monday_logo.svg.png"
+      alt="Monday.com">
+
+    <!-- Disney (official wordmark SVG) -->
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Disney_wordmark.svg/330px-Disney_wordmark.svg.png"
+      alt="Disney">
+
+    <!-- Dropbox (SimpleIcons works fine) -->
+    <img
+      src="https://cdn.simpleicons.org/dropbox"
+      alt="Dropbox">
+
+  </div>
+</section>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
