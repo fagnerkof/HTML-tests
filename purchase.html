@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Checkout</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+:root {
+  --dark-bg: #0b0b0d;
+  --accent: #ff4d2d;
+  --label: rgba(255,255,255,.65);
+}
+
+body {
+  background: #222;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+}
+
+.phone {
+  width: 360px;
+  height: 760px;
+  margin: 30px auto;
+  background: var(--dark-bg);
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 30px 60px rgba(0,0,0,.5);
+}
+
+/* HEADER */
+.header {
+  height: 82px; /* padded down more */
+  padding: 22px 18px 0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header h1 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* PAYMENT CARD */
+.payment-card {
+  margin: 28px 18px 38px;
+  padding: 20px 22px;
+  border-radius: 20px;
+  color: #fff;
+  background: linear-gradient(135deg, #ff5a3c, #d91f1f);
+}
+
+.payment-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.visa {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.world {
+  font-size: 12px;
+  opacity: .8;
+}
+
+.card-label {
+  font-size: 11px;
+  color: var(--label);
+  margin-top: 18px;
+}
+
+.card-number {
+  font-size: 22px;
+  letter-spacing: 2.4px;
+  margin-top: 6px;
+  margin-bottom: 18px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.card-footer span {
+  font-size: 11px;
+  color: var(--label);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.card-footer .cvc {
+  padding-right: 34px;
+}
+
+/* PURCHASE ROW */
+.purchase-row {
+  padding: 0 18px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  position: relative;
+  z-index: 2; /* ensures it stays visible */
+}
+
+.purchase-row h2 {
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* PRODUCT SECTION */
+.product-section {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 48%; /* reduced from 54% */
+  background: #fff;
+  border-radius: 28px 28px 0 0;
+  padding: 160px 20px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* PRODUCT IMAGE */
+.product-image {
+  position: absolute;
+  top: -40px; /* moved up slightly */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 270px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* PRODUCT INFO */
+.product-label {
+  font-size: 13px;
+  color: #999;
+}
+
+.product-title {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.product-price {
+  font-size: 18px;
+  color: #555;
+}
+
+/* BUY BUTTON */
+.buy-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 25px rgba(255,77,45,.4);
+}
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+
+  <!-- Header -->
+  <div class="header">
+    <button class="icon-btn" aria-label="Back">
+      <!-- Modern left arrow -->
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+
+    <h1>Checkout</h1>
+
+    <button class="icon-btn" aria-label="Menu">
+      ⋯
+    </button>
+  </div>
+
+  <!-- Payment Card -->
+  <div class="payment-card">
+    <div class="payment-top">
+      <div class="visa">VISA</div>
+      <div class="world">world</div>
+    </div>
+
+    <div class="card-label">Card number</div>
+    <div class="card-number">4539&nbsp;&nbsp;4659&nbsp;&nbsp;2157&nbsp;&nbsp;2356</div>
+
+    <div class="card-footer">
+      <div>
+        <span>Expiration</span>
+        01/2024
+      </div>
+      <div class="cvc">
+        <span>CVC2</span>
+        234
+      </div>
+    </div>
+  </div>
+
+  <!-- Purchase -->
+  <div class="purchase-row">
+    <h2>Purchase</h2>
+    <div class="d-flex align-items-center gap-2">
+      <small>Qty.</small>
+      <select class="form-select form-select-sm w-auto">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Product -->
+  <div class="product-section">
+
+    <img
+      src="https://iili.io/fbrhYQe.md.png"
+      alt="Nike Shoe"
+      class="product-image"
+    >
+
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <div class="product-label">Men's Shoe</div>
+        <div class="product-title">Nike Shoe</div>
+        <div class="product-price">$ 320.99</div>
+      </div>
+
+      <button class="buy-btn" aria-label="Proceed">
+        <!-- Modern right arrow -->
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 6 15 12 9 18"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
