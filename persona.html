@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Persona Card — Usuário de Aeroporto</title>
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#2b2a34;
+      --card:#ffffff;
+      --muted:#8f95a3;
+      --text:#1c1f27;
+      --line:#eceef3;
+      --accent:#f05a5a; /* underline vermelho */
+      --shadow: 0 20px 60px rgba(0,0,0,.28);
+      --radius: 14px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      background:
+        radial-gradient(1200px 500px at 20% 10%, rgba(255,255,255,.08), transparent 60%),
+        radial-gradient(900px 500px at 85% 25%, rgba(240,90,90,.10), transparent 55%),
+        linear-gradient(135deg, #2a2932 0%, #242431 50%, #1f1f2a 100%);
+      font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color: var(--text);
+      padding: 28px;
+    }
+
+    .geo{
+      position:fixed; inset:0;
+      pointer-events:none;
+      opacity:.08;
+      background-image:
+        linear-gradient(135deg, transparent 75%, rgba(255,255,255,.5) 75%),
+        linear-gradient(225deg, transparent 75%, rgba(255,255,255,.5) 75%);
+      background-size: 54px 54px;
+      mix-blend-mode: soft-light;
+    }
+
+    .persona-card{
+      width:min(1120px, 100%);
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      display:grid;
+      grid-template-columns: 40% 60%;
+      position:relative;
+    }
+
+    /* LEFT */
+    .left{
+      position:relative;
+      min-height: 560px;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,.08), rgba(0,0,0,.70)),
+        /* foto */
+        url("https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1400&q=75") center/cover no-repeat;
+    }
+    .left::after{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(800px 420px at 40% 15%, rgba(255,255,255,.16), transparent 60%);
+      pointer-events:none;
+      mix-blend-mode: overlay;
+    }
+
+    /* centralizar textos */
+    .name-wrap{
+      position:absolute;
+      left:32px; right:32px;
+      bottom:34px;
+      color:#fff;
+      text-align:center;
+    }
+    .persona-name{
+      font-weight: 800;
+      letter-spacing: .14em;
+      font-size: 56px;
+      line-height: 1;
+      margin: 0 0 12px 0;
+      text-transform: uppercase;
+    }
+    .quote{
+      margin:0 auto;
+      max-width: 420px;
+      font-style: italic; /* mesma fonte do card, só itálico */
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 1.55;
+      color: rgba(255,255,255,.92);
+      text-shadow: 0 6px 22px rgba(0,0,0,.45);
+    }
+
+    /* RIGHT */
+    .right{
+      padding: 26px 30px 22px 30px;
+      display:grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 18px;
+      background: linear-gradient(to bottom, rgba(250,251,253,.95), rgba(250,251,253,.95));
+    }
+
+    .section{
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+    }
+    .section:last-child{ border-bottom:none; padding-bottom:0; }
+
+    /* TÍTULO + underline vermelho embaixo */
+    .sec-title{
+      display:inline-flex;
+      flex-direction:column;
+      gap: 8px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: 14px;
+      margin: 0 0 14px 0;
+      color: #2a2f3a;
+    }
+    .sec-title::after{
+      content:"";
+      height:3px;
+      width:28px;
+      background: var(--accent);
+      border-radius: 3px;
+    }
+
+    /* ABOUT GRID */
+    .about-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 26px;
+      align-items:start;
+    }
+
+    .kv{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      font-size: 13px;
+      color:#2a2f3a;
+      line-height: 1.3;
+      min-height: 22px;
+    }
+    .kv span{
+      color: var(--muted);
+      font-weight: 700;
+      margin-right: 4px;
+    }
+    .kv b{ font-weight: 700; }
+
+    /* ÍCONES */
+    .ico{
+      width: 18px; height: 18px;
+      display:inline-grid;
+      place-items:center;
+      flex: 0 0 18px;
+      color:#6f778a;
+    }
+    .ico svg{ width:18px; height:18px; fill: currentColor; display:block; }
+
+    .twocol{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .list{
+      margin:0;
+      padding-left: 16px;
+      color:#333a49;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .list li{ margin: 6px 0; }
+
+    .bottom{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items:start;
+      padding-top: 8px;
+    }
+
+    /* DISC */
+    .disc{
+      display:grid;
+      grid-template-columns: 120px 1fr;
+      gap: 14px;
+      align-items:center;
+    }
+
+    /* Alinhamento: barras e letras usam o MESMO grid de 4 colunas */
+    .disc-chart{
+      border-left: 1px solid var(--line);
+      padding: 10px 6px 0 6px;
+    }
+    .disc-bars{
+      display:grid;
+      grid-template-columns: repeat(4, 18px);
+      column-gap: 8px;
+      align-items:end;
+      height: 90px;
+      width: fit-content;
+      margin: 0;
+    }
+    .bar{
+      width: 18px;
+      background: var(--accent);
+      border-radius: 6px 6px 0 0;
+      box-shadow: 0 10px 18px rgba(240,90,90,.18);
+      justify-self: center;
+    }
+    .bar.d{ height: 28px; opacity:.65; }
+    .bar.i{ height: 52px; opacity:.85; }
+    .bar.s{ height: 78px; opacity:1; }
+    .bar.c{ height: 72px; opacity:.95; }
+
+    .disc-labels{
+      display:grid;
+      grid-template-columns: repeat(4, 18px);
+      column-gap: 8px;
+      width: fit-content;
+      padding-top: 6px;
+      font-weight: 800;
+      letter-spacing:.22em;
+      font-size: 11px;
+      color:#c0c6d4;
+    }
+    .disc-labels span{
+      display:block;
+      text-align:center;
+    }
+
+    .disc-text{
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    /* FAVORITE BRANDS */
+    .brands{
+      display:flex;
+      align-items:center;
+      gap: 18px;
+      flex-wrap:wrap;
+      opacity:.55;
+      padding-top: 6px;
+    }
+    .brand-logo{
+      height: 26px;
+      width: auto;
+      filter: grayscale(100%);
+      opacity: .95;
+      display:block;
+    }
+
+    /* Responsivo */
+    @media (max-width: 980px){
+      .persona-card{ grid-template-columns: 1fr; }
+      .left{ min-height: 420px; }
+      .persona-name{ font-size: 44px; }
+      .right{ padding: 22px; }
+      .twocol, .bottom{ grid-template-columns: 1fr; }
+      .about-grid{ grid-template-columns: 1fr; }
+      .disc{ grid-template-columns: 1fr; }
+      .disc-chart{ border-left:none; border-top:1px solid var(--line); padding-top: 14px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="geo"></div>
+
+  <section class="persona-card" aria-label="Persona card">
+    <!-- LEFT -->
+    <aside class="left">
+      <div class="name-wrap">
+        <h1 class="persona-name">Samira</h1>
+        <p class="quote">“Viajar faz parte da minha rotina - preciso que tudo funcione sem complicação.”</p>
+      </div>
+    </aside>
+
+    <!-- RIGHT -->
+    <main class="right">
+      <!-- ABOUT -->
+      <section class="section">
+        <h2 class="sec-title">Sobre</h2>
+
+        <div class="about-grid">
+          <!-- Idade (bolo) -->
+          <div class="kv">
+            <i class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3c.55 0 1 .45 1 1v2h-2V4c0-.55.45-1 1-1Zm8 9v9H4v-9c0-1.1.9-2 2-2h1.1c.45 0 .86.24 1.07.64l.36.7c.18.34.54.56.93.56s.75-.22.93-.56l.36-.7c.21-.4.62-.64 1.07-.64h.36c.45 0 .86.24 1.07.64l.36.7c.18.34.54.56.93.56s.75-.22.93-.56l.36-.7c.21-.4.62-.64 1.07-.64H18c1.1 0 2 .9 2 2ZM6 19h12v-2H6v2Z"/>
+              </svg>
+            </i>
+            <div><span>Idade:</span> <b>34</b></div>
+          </div>
+
+          <!-- Renda (dinheiro) -->
+          <div class="kv">
+            <i class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M3 7h18v10H3V7Zm2 2v6h14V9H5Zm7 1.25A2.75 2.75 0 1 0 12 15.75 2.75 2.75 0 0 0 12 10.25ZM7 10h1.5v1.5H7V10Zm8.5 2.5H17V14h-1.5v-1.5Z"/>
+              </svg>
+            </i>
+            <div><span>Renda:</span> <b>$120k+</b></div>
+          </div>
+
+          <!-- Profissão (maleta) -->
+          <div class="kv">
+            <i class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M10 4h4a2 2 0 0 1 2 2v1h4a2 2 0 0 1 2 2v2H2V9a2 2 0 0 1 2-2h4V6a2 2 0 0 1 2-2Zm4 3V6h-4v1h4ZM2 13h20v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6Z"/>
+              </svg>
+            </i>
+            <div><span>Profissão:</span> <b>Gerente Comercial</b></div>
+          </div>
+
+          <!-- Filhos -->
+          <div class="kv">
+            <i class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M7.5 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm9 3a2.5 2.5 0 1 0-2.5-2.5A2.5 2.5 0 0 0 16.5 14ZM3 20a4.5 4.5 0 0 1 9 0H3Zm10.5 0c.18-1.6 1.55-2.85 3.25-2.85A3.25 3.25 0 0 1 20 20h-6.5Z"/>
+              </svg>
+            </i>
+            <div><span>Filhos:</span> <b>1</b></div>
+          </div>
+
+          <!-- Status (aliança) -->
+          <div class="kv">
+            <i class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 7a5 5 0 1 1-5 5 5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 1 0 14.8 12 2.8 2.8 0 0 0 12 9.2ZM17 4l3 3-2 2-3-3 2-2Z"/>
+              </svg>
+            </i>
+            <div><span>Status:</span> <b>Casada</b></div>
+          </div>
+
+          <!-- Frequência (avião) -->
+          <div class="kv">
+            <i class="ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M21.5 11.2 3.2 3.9c-.6-.2-1.2.3-1.1.9l1.6 6.1 7.2 1.9-7.2 1.9-1.6 6.1c-.1.6.5 1.1 1.1.9l18.3-7.3c.7-.3.7-1.3 0-1.6Z"/>
+              </svg>
+            </i>
+            <div><span>Frequência:</span> <b>2–4 voos/mês</b></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WANTS + FRUSTRATIONS -->
+      <section class="section">
+        <div class="twocol">
+          <div>
+            <h2 class="sec-title">Necessidades</h2>
+            <ul class="list">
+              <li>Check-in rápido e intuitivo</li>
+              <li>Informações claras sobre portão e horários</li>
+              <li>Conexão Wi-Fi estável</li>
+              <li>Embarque eficiente e previsível</li>
+              <li>Tomadas e áreas de descanso disponíveis</li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 class="sec-title">Frustrações</h2>
+            <ul class="list">
+              <li>Mudanças de portão sem notificação clara</li>
+              <li>Filas longas no raio-X e imigração</li>
+              <li>Sinalização confusa para conexões</li>
+              <li>Apps de companhias pouco intuitivos</li>
+              <li>Falta de tomadas / carregadores</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- DISC + BRANDS -->
+      <section class="section">
+        <div class="bottom">
+          <div>
+            <h2 class="sec-title">Perfil DISC</h2>
+
+            <div class="disc">
+              <div class="disc-chart" aria-label="DISC bars">
+                <div class="disc-bars">
+                  <div class="bar d" title="D"></div>
+                  <div class="bar i" title="I"></div>
+                  <div class="bar s" title="S"></div>
+                  <div class="bar c" title="C"></div>
+                </div>
+                <div class="disc-labels" aria-hidden="true">
+                  <span>D</span><span>I</span><span>S</span><span>C</span>
+                </div>
+              </div>
+
+              <p class="disc-text">
+                Organizada, pragmática e orientada a eficiência.
+                Valoriza previsibilidade, comunicação objetiva e fluxo sem atrito.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="sec-title">Marcas Favoritas</h2>
+
+            <div class="brands" aria-label="Favorite brands">
+              <img class="brand-logo" alt="Apple"
+                src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg">
+              <img class="brand-logo" alt="Nubank"
+                src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Nubank_logo_2021.svg">
+              <img class="brand-logo" alt="Amazon"
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg">
+              <img class="brand-logo" alt="Airbnb"
+                src="https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_B%C3%A9lo.svg">
+              <img class="brand-logo" alt="Nike"
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg">
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </section>
+</body>
+</html>
