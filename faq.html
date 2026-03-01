@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FAQ • SaaS</title>
+
+  <!-- Fonte -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+
+  <style>
+    :root{
+      --bg1:#ffbfe6;
+      --bg2:#ffd6ef;
+
+      --panel1:#2b3568;
+      --panel2:#1f2a5a;
+
+      --stroke: rgba(255,255,255,.06);
+
+      --text: rgba(255,255,255,.88);
+      --muted: rgba(255,255,255,.55);
+
+      --cta1:#1a9bff;
+      --cta2:#147fff;
+    }
+
+    body{
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      margin:0;
+      padding: 28px 14px;
+      background: radial-gradient(900px 650px at 50% 30%, var(--bg2) 0%, var(--bg1) 60%, #ffb4e1 100%);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    /* CARD */
+    .faq-panel{
+      width: 580px;                 /* <<< exato */
+      max-width: 100%;
+      border-radius: 14px;
+      background: linear-gradient(180deg, var(--panel1), var(--panel2));
+      box-shadow: 0 26px 70px rgba(0,0,0,.30);
+      position: relative;
+      overflow: visible;            /* para a rocha "sair" */
+    }
+
+    .faq-panel::before{
+      content:"";
+      position:absolute; inset:-2px;
+      border-radius: 16px;
+      background:
+        radial-gradient(650px 220px at 50% 0%, rgba(255,255,255,.08), transparent 65%),
+        radial-gradient(520px 260px at 0% 35%, rgba(98,145,255,.08), transparent 60%),
+        radial-gradient(520px 260px at 100% 40%, rgba(255,120,220,.06), transparent 60%);
+      pointer-events:none;
+    }
+
+    .faq-inner{
+      position: relative;
+      padding: 28px 26px 24px;
+      border-radius: 14px;
+      overflow: hidden;             /* mantém o conteúdo "limpo" */
+    }
+
+    /* HEADER */
+    .faq-header{
+      display:flex;
+      align-items:flex-start;
+      gap: 14px;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* sem borda/caixa no logo */
+    .brand-mark{
+      flex: 0 0 auto;
+      margin-top: 2px;
+      line-height: 0;
+    }
+    .brand-mark img{
+      width: 34px;                  /* <<< maior */
+      height: 34px;
+      display:block;
+    }
+
+    .header-text{
+      margin-left:auto;
+      text-align:right;
+    }
+
+    .faq-title{
+      margin: 0;
+      color: var(--text);
+      font-weight: 300;             /* <<< thin */
+      font-size: 26px;
+      letter-spacing: -0.2px;
+      line-height: 1.12;
+    }
+
+    .faq-sub{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 12.5px;
+    }
+    .faq-sub a{
+      color: rgba(255,255,255,.75);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,.20);
+    }
+    .faq-sub a:hover{
+      color:#fff;
+      border-bottom-color: rgba(255,255,255,.45);
+    }
+
+    /* FAQ BOX (bem sutil) */
+    .faq-box{
+      border-radius: 10px;
+      border: 1px solid var(--stroke);
+      background: rgba(8,12,35,.10);
+      padding: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ACCORDION */
+    .accordion{
+      --bs-accordion-bg: transparent;
+      --bs-accordion-border-color: transparent;
+    }
+    .accordion-item{
+      background: transparent;
+      border: 0;
+      margin: 8px 0;
+    }
+
+    .accordion-button{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      background: rgba(255,255,255,.02);
+      color: rgba(255,255,255,.80);
+      border: 1px solid rgba(255,255,255,.055); /* outline sutil */
+      border-radius: 10px !important;
+      box-shadow: 0 8px 16px rgba(0,0,0,.10);
+      padding: 14px 14px;
+      font-size: 13.5px;
+      font-weight: 500;
+    }
+
+    .accordion-button:focus{
+      box-shadow: 0 0 0 .18rem rgba(26,155,255,.12);
+      border-color: rgba(26,155,255,.25);
+    }
+
+    /* remove caret padrão */
+    .accordion-button::after{ display:none; }
+
+    /* ícones SEM borda/caixa */
+    .faq-left{
+      font-size: 16px;
+      color: rgba(255,255,255,.60);
+      flex: 0 0 auto;
+      line-height: 0;
+    }
+
+    .faq-right{
+      margin-left: auto;
+      font-size: 14px;
+      color: rgba(255,255,255,.55);
+      transition: transform .22s ease;
+      flex: 0 0 auto;
+      line-height: 0;
+    }
+
+    .accordion-button:not(.collapsed) .faq-right{
+      transform: rotate(180deg);
+      color: rgba(255,255,255,.78);
+    }
+
+    .accordion-button:not(.collapsed){
+      background: rgba(255,255,255,.035);
+      border-color: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.92);
+    }
+
+    .accordion-body{
+      color: rgba(255,255,255,.64);
+      font-size: 13px;
+      line-height: 1.55;
+      padding: 12px 14px 14px;
+    }
+
+    /* CTA */
+    .cta-row{
+      display:flex;
+      justify-content:flex-end;
+      margin-top: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-actions{
+      width: 240px;
+      text-align:center;
+    }
+
+    .btn-cta{
+      width:100%;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: 600;
+      color:#fff;
+      background: linear-gradient(180deg, rgba(26,155,255,.95), rgba(20,127,255,.95)); /* mais flat */
+      box-shadow: 0 10px 18px rgba(15,115,255,.16); /* brilho contido */
+    }
+    .btn-cta:hover{ filter: brightness(1.02); }
+
+    .cta-link{
+      display:inline-block;
+      margin-top: 8px;
+      font-size: 12px;
+      color: rgba(255,255,255,.55);
+      text-decoration:none;
+    }
+    .cta-link:hover{ color: rgba(255,255,255,.82); }
+
+    /* ROCHA */
+    .rocks-wrap{
+      position:absolute;
+      left: 10px;
+      bottom: -108px;              /* <<< estava -58px, agora -108px */
+      width: 320px;
+      height: 220px;
+      z-index: 5;
+      pointer-events:none;
+      filter:
+        drop-shadow(0 26px 18px rgba(0,0,0,.32))
+        drop-shadow(0 10px 10px rgba(0,0,0,.18));
+      animation: floaty 6.5s ease-in-out infinite;
+    }
+    @keyframes floaty{
+      0%,100%{ transform: translateY(0); }
+      50%{ transform: translateY(-6px); }
+    }
+
+    @media (max-width: 620px){
+      .faq-title{ font-size: 24px; }
+      .cta-actions{ width: min(320px, 100%); }
+      .rocks-wrap{
+        left: 6px;
+        bottom: -128px;
+        width: 300px;
+        height: 205px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="faq-panel">
+
+    <!-- Rocha/Blob SVG (mais detalhado) -->
+    <div class="rocks-wrap" aria-hidden="true">
+      <svg viewBox="0 0 420 280" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="rockA" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffe0c9"/>
+            <stop offset="1" stop-color="#d89578"/>
+          </linearGradient>
+          <linearGradient id="rockB" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f6c3a1"/>
+            <stop offset="1" stop-color="#c98269"/>
+          </linearGradient>
+          <linearGradient id="rockC" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffd7be"/>
+            <stop offset="1" stop-color="#e6a98b"/>
+          </linearGradient>
+          <linearGradient id="shadow" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#000" stop-opacity=".22"/>
+            <stop offset="1" stop-color="#000" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <ellipse cx="170" cy="232" rx="150" ry="28" fill="url(#shadow)" opacity=".45"/>
+
+        <path d="M72 214 42 178 72 124 156 96 264 110 332 150 318 212 242 238 138 240Z" fill="url(#rockA)"/>
+        <path d="M72 214 72 124 42 178Z" fill="#d08b71" opacity=".92"/>
+        <path d="M72 124 156 96 138 240 72 214Z" fill="url(#rockC)" opacity=".92"/>
+        <path d="M156 96 264 110 242 238 138 240Z" fill="url(#rockB)" opacity=".96"/>
+        <path d="M264 110 332 150 318 212 242 238Z" fill="#cf886f" opacity=".94"/>
+        <path d="M332 150 264 110 286 162Z" fill="#efb898" opacity=".9"/>
+        <path d="M286 162 242 238 318 212Z" fill="#c57f66" opacity=".86"/>
+
+        <path d="M16 190 38 154 84 152 108 182 88 218 36 216Z" fill="url(#rockB)"/>
+        <path d="M16 190 38 154 36 216Z" fill="#c57d64" opacity=".92"/>
+        <path d="M38 154 84 152 88 218 36 216Z" fill="url(#rockC)" opacity=".9"/>
+        <path d="M84 152 108 182 88 218Z" fill="#d89277" opacity=".92"/>
+
+        <path d="M120 126 164 64 232 58 270 112 236 168 152 168Z" fill="url(#rockC)" opacity=".93"/>
+        <path d="M120 126 164 64 152 168Z" fill="#d18b71" opacity=".82"/>
+        <path d="M164 64 232 58 236 168 152 168Z" fill="#ffd8bf" opacity=".86"/>
+        <path d="M232 58 270 112 236 168Z" fill="#e2a789" opacity=".92"/>
+        <path d="M232 58 208 110 270 112Z" fill="#f7c7aa" opacity=".72"/>
+
+        <path d="M158 104c28-18 70-22 98-6-24 8-62 10-98 6Z" fill="#fff" opacity=".18"/>
+        <path d="M52 168c14-8 32-8 44 2-16 4-28 4-44-2Z" fill="#fff" opacity=".14"/>	/* <<< ver depois de trocar isso por uma imagem simples... */
+      </svg>
+    </div> 
+
+    <div class="faq-inner">
+      <header class="faq-header">
+        <div class="brand-mark" aria-hidden="true">
+          <!-- PNG do logo do Dropbox -->
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Dropbox_Icon.svg/330px-Dropbox_Icon.svg.png"
+            alt="Dropbox"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="header-text">
+          <h1 class="faq-title">Frequently asked questions?</h1>
+          <p class="faq-sub">
+            Can’t find it here? Check out our <a href="#">Help Center</a>
+          </p>
+        </div>
+      </header>
+
+      <section class="faq-box">
+        <div class="accordion" id="faqAcc">
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="h1">
+              <button class="accordion-button collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#c1"
+                      aria-expanded="false" aria-controls="c1">
+                <i class="bi bi-building faq-left"></i>
+                <span>What is a Dropbox Business user?</span>
+                <i class="bi bi-chevron-down faq-right"></i>
+              </button>
+            </h2>
+            <div id="c1" class="accordion-collapse collapse" aria-labelledby="h1" data-bs-parent="#faqAcc">
+              <div class="accordion-body">
+                A “Business user” is a seat in your workspace. Each user gets access to shared team features,
+                admin controls, and collaboration tools according to your plan.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="h2">
+              <button class="accordion-button collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#c2"
+                      aria-expanded="false" aria-controls="c2">
+                <i class="bi bi-hdd-network faq-left"></i>
+                <span>How much space does my team get?</span>
+                <i class="bi bi-chevron-down faq-right"></i>
+              </button>
+            </h2>
+            <div id="c2" class="accordion-collapse collapse" aria-labelledby="h2" data-bs-parent="#faqAcc">
+              <div class="accordion-body">
+                Storage depends on your plan. Some tiers offer pooled storage for the whole team,
+                while others provide per-user allocations. You can upgrade anytime.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="h3">
+              <button class="accordion-button collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#c3"
+                      aria-expanded="false" aria-controls="c3">
+                <i class="bi bi-credit-card faq-left"></i>
+                <span>Why do I need to enter my credit card for the free trial?</span>
+                <i class="bi bi-chevron-down faq-right"></i>
+              </button>
+            </h2>
+            <div id="c3" class="accordion-collapse collapse" aria-labelledby="h3" data-bs-parent="#faqAcc">
+              <div class="accordion-body">
+                We ask for a card to verify billing and prevent abuse. You won’t be charged until the trial ends,
+                and you can cancel anytime before that.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="h4">
+              <button class="accordion-button collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#c4"
+                      aria-expanded="false" aria-controls="c4">
+                <i class="bi bi-people faq-left"></i>
+                <span>Can I have fewer than 5 users on my account?</span>
+                <i class="bi bi-chevron-down faq-right"></i>
+              </button>
+            </h2>
+            <div id="c4" class="accordion-collapse collapse" aria-labelledby="h4" data-bs-parent="#faqAcc">
+              <div class="accordion-body">
+                Some Business plans have a minimum seat count. If you need fewer users,
+                check our “Starter” options or contact sales for the best fit.
+              </div>
+            </div>
+          </div>
+		  
+		  <div class="accordion-item">
+            <h2 class="accordion-header" id="h5">
+              <button class="accordion-button collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#c5"
+                      aria-expanded="false" aria-controls="c5">
+                <span class="faq-left"><i class="bi bi-tags"></i></span>
+                <span>Do you have any volume discounts?</span>
+                <span class="faq-right"><i class="bi bi-chevron-down"></i></span>
+              </button>
+            </h2>
+            <div id="c5" class="accordion-collapse collapse" aria-labelledby="h5" data-bs-parent="#faqAcc">
+              <div class="accordion-body">
+                Yes - larger teams may qualify for discounts. Share your expected number of seats and billing cycle,
+                and we’ll recommend the best pricing.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="h6">
+              <button class="accordion-button collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#c6"
+                      aria-expanded="false" aria-controls="c6">
+                <span class="faq-left"><i class="bi bi-rocket-takeoff"></i></span>
+                <span>I’d like to start a trial. What do I need to know to get started?</span>
+                <span class="faq-right"><i class="bi bi-chevron-down"></i></span>
+              </button>
+            </h2>
+            <div id="c6" class="accordion-collapse collapse" aria-labelledby="h6" data-bs-parent="#faqAcc">
+              <div class="accordion-body">
+                Choose a plan, add your team members, and configure your workspace (permissions, sharing, and security).
+                In a few minutes you’re ready to collaborate.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="cta-row">
+        <div class="cta-actions">
+          <button class="btn-cta" type="button">Try free for 30 days</button>
+          <a class="cta-link" href="#">or purchase now</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
